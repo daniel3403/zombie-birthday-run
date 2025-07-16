@@ -52,12 +52,16 @@ function spawnObstacles() {
 }
 
 function drawPlayer() {
+  // 🟤 Dibujar sombra en el suelo (solo si está por encima del suelo)
+  if (player.y < ground - player.height) {
+    ctx.beginPath();
+    ctx.ellipse(player.x + player.width / 2, ground - 5, 15, 5, 0, 0, 2 * Math.PI);
+    ctx.fillStyle = "rgba(0, 0, 0, 0.3)";
+    ctx.fill();
+  }
+
+  // 🧍‍♀️ Dibuja a Rocío (corriendo o saltando)
   const currentSprite = player.jumping ? playerJumpImg : playerRunImg;
-
-  // DEBUG: muestra el área del jugador
-  // ctx.fillStyle = "rgba(255, 0, 0, 0.3)";
-  // ctx.fillRect(player.x, player.y, player.width, player.height);
-
   ctx.drawImage(currentSprite, player.x, player.y, player.width, player.height);
 }
 
