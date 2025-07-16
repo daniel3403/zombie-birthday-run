@@ -4,57 +4,55 @@ const ctx = canvas.getContext('2d');
 canvas.width = 800;
 canvas.height = 300;
 
-let player = {
-  x: 50,
-  y: 220,
-  width: 40,
-  height: 40,
-  vy: 0,
-  jumping: false,
-  lives: 3
-};
+const playerImg = new Image();
+playerImg.src = "assets/player.png";
 
-let gravity = 1.5;
-let jumpPower = -20;
+const zombieImg = new Image();
+zombieImg.src = "assets/zombie.png";
+
+const bgImg = new Image();
+const finalImg = new Image();
+finalImg.src = "assets/final_scene.png";
+bgImg.src = "assets/background.png";
+
+let player = { x: 50, y: 210, width: 48, height: 48, vy: 0, jumping: false, lives: 3 };
+let gravity = 1.2;
+let jumpPower = -18;
+let ground = 258;
 let obstacles = [];
-let obstacleSpacing = 400;
-let ground = 260;
 let frame = 0;
 let reachedEnd = false;
 
 function spawnObstacles() {
   for (let i = 1; i <= 10; i++) {
-    obstacles.push({
-      x: i * obstacleSpacing + 400,
-      y: ground,
-      width: 40,
-      height: 40,
-      hit: false
-    });
+    obstacles.push({ x: i * 400 + 400, y: ground, width: 48, height: 48, hit: false });
   }
 }
 
 function drawPlayer() {
-  ctx.fillStyle = "#6cf";
-  ctx.fillRect(player.x, player.y, player.width, player.height);
+  ctx.drawImage(playerImg, player.x, player.y, player.width, player.height);
 }
 
 function drawObstacles() {
-  ctx.fillStyle = "#9f3";
   for (let obs of obstacles) {
-    ctx.fillRect(obs.x, obs.y, obs.width, obs.height);
+    ctx.drawImage(zombieImg, obs.x, obs.y, obs.width, obs.height);
   }
+}
+
+function drawBackground() {
+  ctx.drawImage(bgImg, 0, 0, canvas.width, canvas.height);
 }
 
 function drawLives() {
   ctx.fillStyle = "#fff";
-  ctx.font = "20px Arial";
+  ctx.font = "18px Arial";
   ctx.fillText("Vidas: " + player.lives, 10, 25);
 }
 
 function drawEndScene() {
+ctx.drawImage(finalImg, 250, 30, 300, 200);
   ctx.fillStyle = "#fff";
-  ctx.font = "24px Arial";
+  ctx.font = "22px Arial";
   ctx.fillText("Sobreviviste a los zombis. Corriste sin parar.", 150, 100);
   ctx.fillText("Y ahora, te espera lo mejor: una torta y una amiga que te quiere.", 40, 140);
   ctx.fillText("¡Feliz cumpleaños, Rocío!", 250, 180);
@@ -62,6 +60,7 @@ function drawEndScene() {
 
 function update() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
+  drawBackground();
 
   if (reachedEnd) {
     drawEndScene();
@@ -76,9 +75,8 @@ function update() {
     player.jumping = false;
   }
 
-  frame++;
   for (let obs of obstacles) {
-    obs.x -= 5;
+    obs.x -= 4;
 
     if (
       player.x < obs.x + obs.width &&
@@ -95,12 +93,12 @@ function update() {
 
   if (player.lives <= 0) {
     ctx.fillStyle = "#f44";
-    ctx.font = "30px Arial";
+    ctx.font = "26px Arial";
     ctx.fillText("¡Perdiste! Recarga la página para intentarlo de nuevo.", 100, 150);
     return;
   }
 
-  if (obstacles.length && obstacles[obstacles.length - 1].x < -50) {
+  if (obstacles.length && obstacles[obstacles.length - 1].x < -60) {
     reachedEnd = true;
   }
 
@@ -111,14 +109,14 @@ function update() {
   requestAnimationFrame(update);
 }
 
-document.addEventListener('keydown', e => {
-  if ((e.code === 'Space' || e.code === 'ArrowUp') && !player.jumping) {
+document.addEventListener("keydown", (e) => {
+  if ((e.code === "Space" || e.code === "ArrowUp") && !player.jumping) {
     player.vy = jumpPower;
     player.jumping = true;
   }
 });
 
-document.addEventListener('click', () => {
+document.addEventListener("click", () => {
   if (!player.jumping) {
     player.vy = jumpPower;
     player.jumping = true;
