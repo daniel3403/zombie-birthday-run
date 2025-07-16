@@ -76,7 +76,7 @@ function update() {
   }
 
   for (let obs of obstacles) {
-    obs.x -= 4;
+    obs.x -= 2;
 
     if (
       player.x < obs.x + obs.width &&
