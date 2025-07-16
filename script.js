@@ -87,13 +87,13 @@ function update() {
     return;
   }
 
-  player.y += player.vy;
-  player.vy += gravity;
+player.y += player.vy;
+player.vy += gravity;
 
-  if (player.y >= ground) {
-    player.y = ground;
-    player.jumping = false;
-  }
+if (player.y >= ground - player.height) {
+  player.y = ground - player.height;
+  player.jumping = false;
+}
 
   for (let obs of obstacles) {
     obs.x -= 2;
