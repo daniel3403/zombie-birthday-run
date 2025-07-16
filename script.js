@@ -26,7 +26,7 @@ let player = {
   height: 48,
   vy: 0,
   jumping: false,
-  lives: 3
+  lives: 5
 };
 
 let gravity = 1.2;
@@ -99,10 +99,10 @@ function update() {
     obs.x -= 2;
 
 if (
-  player.x + 20 < obs.x + obs.width - 20 &&
-  player.x + player.width - 20 > obs.x + 20 &&
-  player.y + 20 < obs.y + obs.height - 20 &&
-  player.y + player.height - 20 > obs.y + 20
+  player.x + 10 < obs.x + obs.width - 10 &&
+  player.x + player.width - 10 > obs.x + 10 &&
+  player.y + 10 < obs.y + obs.height - 10 &&
+  player.y + player.height - 10 > obs.y + 10
 ) {
       if (!obs.hit) {
         player.lives--;
