@@ -22,6 +22,8 @@ bgImg.src = "assets/background.png";
 const finalImg = new Image();
 finalImg.src = "assets/final_scene.png";
 
+const jumpSound = new Audio("assets/woosh-230554.mp3");
+
 // ✅ Jugador bien alineado al suelo
 let player = {
   x: 50,
@@ -149,6 +151,8 @@ document.addEventListener("keydown", (e) => {
   if ((e.code === "Space" || e.code === "ArrowUp") && !player.jumping) {
     player.vy = jumpPower;
     player.jumping = true;
+    jumpSound.currentTime = 0;
+    jumpSound.play();
   }
 });
 
@@ -156,8 +160,11 @@ document.addEventListener("click", () => {
   if (!player.jumping) {
     player.vy = jumpPower;
     player.jumping = true;
+    jumpSound.currentTime = 0;
+    jumpSound.play();
   }
 });
+me h
 
 // Esperar que carguen todas las imágenes antes de empezar
 Promise.all([
