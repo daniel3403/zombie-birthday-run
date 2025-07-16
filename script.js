@@ -5,7 +5,7 @@ canvas.width = 800;
 canvas.height = 300;
 
 // ✅ Primero definimos el suelo
-let ground = 278;
+let ground = 299;
 
 const playerRunImg = new Image();
 playerRunImg.src = "assets/player.png";
@@ -25,7 +25,7 @@ finalImg.src = "assets/final_scene.png";
 // ✅ Jugador bien alineado al suelo
 let player = {
   x: 50,
-  y: ground - 88,
+  y: ground - 68,
   width: 88,
   height: 88,
   vy: 0,
