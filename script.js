@@ -21,7 +21,7 @@ finalImg.src = "assets/final_scene.png";
 
 let player = {
   x: 50,
-    y: 170,
+  y: 170,
   width: 48,
   height: 48,
   vy: 0,
@@ -40,7 +40,7 @@ function spawnObstacles() {
   for (let i = 1; i <= 6; i++) {
     obstacles.push({
       x: i * obstacleSpacing + 600,
-      y: ground,
+      y: ground - 40,
       width: 88,
       height: 88,
       hit: false
