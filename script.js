@@ -41,8 +41,8 @@ function spawnObstacles() {
     obstacles.push({
       x: i * obstacleSpacing + 1000,
       y: ground,
-      width: 88,
-      height: 88,
+      width: 108,
+      height: 48,
       hit: false
     });
   }
