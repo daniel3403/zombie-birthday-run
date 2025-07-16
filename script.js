@@ -34,7 +34,7 @@ let player = {
 };
 
 let gravity = 0.3;
-let jumpPower = -17;
+let jumpPower = -10;
 let obstacles = [];
 let obstacleSpacing = 400;
 let reachedEnd = false;
