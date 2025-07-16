@@ -1,8 +1,8 @@
 const canvas = document.getElementById('gameCanvas');
 const ctx = canvas.getContext('2d');
 
-canvas.width = 1600;
-canvas.height = 600;
+canvas.width = 800;
+canvas.height = 300;
 
 const playerRunImg = new Image();
 playerRunImg.src = "assets/player.png";
@@ -20,29 +20,29 @@ const finalImg = new Image();
 finalImg.src = "assets/final_scene.png";
 
 let player = {
-  x: 100,
-  y: 500,
-  width: 96,
-  height: 96,
+  x: 50,
+  y: 210,
+  width: 48,
+  height: 48,
   vy: 0,
   jumping: false,
   lives: 3
 };
 
-let gravity = 0.9;
-let jumpPower = -28;
-let ground = 564;
+let gravity = 1.2;
+let jumpPower = -18;
+let ground = 258;
 let obstacles = [];
-let obstacleSpacing = 700;
+let obstacleSpacing = 400;
 let reachedEnd = false;
 
 function spawnObstacles() {
-  for (let i = 1; i <= 10; i++) {
+  for (let i = 1; i <= 6; i++) {
     obstacles.push({
       x: i * obstacleSpacing + 400,
       y: ground,
-      width: 96,
-      height: 96,
+      width: 48,
+      height: 48,
       hit: false
     });
   }
@@ -66,16 +66,16 @@ function drawBackground() {
 function drawLives() {
   ctx.fillStyle = "#fff";
   ctx.font = "20px Arial";
-  ctx.fillText("Vidas: " + player.lives, 20, 30);
+  ctx.fillText("Vidas: " + player.lives, 10, 25);
 }
 
 function drawEndScene() {
-  ctx.drawImage(finalImg, 650, 100, 300, 300);
+  ctx.drawImage(finalImg, 250, 30, 300, 200);
   ctx.fillStyle = "#fff";
-  ctx.font = "26px Arial";
-  ctx.fillText("Sobreviviste a los zombis. Corriste sin parar.", 400, 450);
-  ctx.fillText("Y ahora, te espera lo mejor: una torta y una amiga que te quiere.", 250, 490);
-  ctx.fillText("¡Feliz cumpleaños, Rocío!", 600, 530);
+  ctx.font = "22px Arial";
+  ctx.fillText("Sobreviviste a los zombis. Corriste sin parar.", 150, 100);
+  ctx.fillText("Y ahora, te espera lo mejor: una torta y una amiga que te quiere.", 40, 140);
+  ctx.fillText("¡Feliz cumpleaños, Rocío!", 250, 180);
 }
 
 function update() {
@@ -98,12 +98,12 @@ function update() {
   for (let obs of obstacles) {
     obs.x -= 2;
 
-    if (
-      player.x + 10 < obs.x + obs.width - 10 &&
-      player.x + player.width - 10 > obs.x + 10 &&
-      player.y + 10 < obs.y + obs.height - 10 &&
-      player.y + player.height - 10 > obs.y + 10
-    ) {
+if (
+  player.x + 20 < obs.x + obs.width - 20 &&
+  player.x + player.width - 20 > obs.x + 20 &&
+  player.y + 20 < obs.y + obs.height - 20 &&
+  player.y + player.height - 20 > obs.y + 20
+) {
       if (!obs.hit) {
         player.lives--;
         obs.hit = true;
@@ -113,8 +113,8 @@ function update() {
 
   if (player.lives <= 0) {
     ctx.fillStyle = "#f44";
-    ctx.font = "32px Arial";
-    ctx.fillText("¡Perdiste! Recarga la página para intentarlo de nuevo.", 400, 300);
+    ctx.font = "30px Arial";
+    ctx.fillText("¡Perdiste! Recarga la página para intentarlo de nuevo.", 100, 150);
     return;
   }
 
