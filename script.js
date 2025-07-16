@@ -43,7 +43,7 @@ function spawnObstacles() {
   for (let i = 1; i <= 6; i++) {
     obstacles.push({
       x: i * obstacleSpacing + 600,
-      y: ground - 68, // alineado con el suelo
+      y: ground - 72, // alineado con el suelo
       width: 88,
       height: 68,
       hit: false
@@ -109,10 +109,10 @@ function update() {
     obs.x -= 2;
 
     if (
-      player.x + 10 < obs.x + obs.width - 10 &&
-      player.x + player.width - 10 > obs.x + 10 &&
-      player.y + 10 < obs.y + obs.height - 10 &&
-      player.y + player.height - 10 > obs.y + 10
+      player.x + 20 < obs.x + obs.width - 20 &&
+      player.x + player.width - 10 > obs.x + 20 &&
+      player.y + 20 < obs.y + obs.height - 20 &&
+      player.y + player.height - 10 > obs.y + 20
     ) {
       if (!obs.hit) {
         player.lives--;
