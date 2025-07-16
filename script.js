@@ -25,6 +25,12 @@ finalImg.src = "assets/final_scene.png";
 const jumpSound = new Audio("assets/woosh-230554.mp3");
 jumpSound.load();
 
+const birthdaySong = new Audio("assets/birthday_song.mp3");
+birthdaySong.load();
+
+const hitSound = new Audio("assets/hit.mp3");
+hitSound.load(); // precarga para evitar retrasos
+
 // ✅ Jugador bien alineado al suelo
 let player = {
   x: 50,
@@ -86,11 +92,16 @@ function drawLives() {
 
 function drawEndScene() {
   ctx.drawImage(finalImg, 250, 30, 300, 200);
-  ctx.fillStyle = "#000000";
+  ctx.fillStyle = "#fff";
   ctx.font = "22px Arial";
-  ctx.fillText("Sobreviviste a los zombis...", 250, 240);
-  ctx.fillText("Y ahora...", 250, 260);
-  ctx.fillText("¡Feliz cumpleaños, Rocío!", 250, 280);
+  ctx.fillText("Sobreviviste a los zombis...", 40, 150);
+  ctx.fillText("Y ahora...", 40, 200);
+  ctx.fillText("¡Feliz cumpleaños, Rocío!", 40, 250);
+
+  // Reproduce solo si no ha empezado
+  if (birthdaySong.paused) {
+    birthdaySong.play();
+  }
 }
 
 function update() {
@@ -122,9 +133,12 @@ function update() {
       player.y + player.height - 10 > obs.y + 20
     ) {
       if (!obs.hit) {
-        player.lives--;
-        obs.hit = true;
-      }
+  hitSound.pause();             // detiene si estaba sonando
+  hitSound.currentTime = 0;     // reinicia el sonido
+  hitSound.play();              // lo reproduce
+  player.lives--;
+  obs.hit = true;
+}
     }
   }
 
