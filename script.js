@@ -1,8 +1,8 @@
 const canvas = document.getElementById('gameCanvas');
 const ctx = canvas.getContext('2d');
 
-canvas.width = 5600;
-canvas.height = 2100;
+canvas.width = 1600;
+canvas.height = 600;
 
 const playerRunImg = new Image();
 playerRunImg.src = "assets/player.png";
@@ -18,17 +18,17 @@ const finalImg = new Image();
 finalImg.src = "assets/final_scene.png";
 bgImg.src = "assets/background.png";
 
-let player = { x: 350, y: 1750, width: 336, height: 336, vy: 0, jumping: false, lives: 3 };
+let player = { x: 100, y: 500, width: 96, height: 96, vy: 0, jumping: false, lives: 3 };
 let gravity = 1.2;
-let jumpPower = -135;
-let ground = 1960;
+let jumpPower = -36;
+let ground = 564;
 let obstacles = [];
 let frame = 0;
 let reachedEnd = false;
 
 function spawnObstacles() {
   for (let i = 1; i <= 10; i++) {
-    obstacles.push({ x: i * 400 + 400, y: ground, width: 336, height: 336, hit: false });
+    obstacles.push({ x: i * 400 + 400, y: ground, width: 96, height: 96, hit: false });
   }
 }
 
