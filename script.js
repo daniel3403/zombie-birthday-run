@@ -39,7 +39,7 @@ let reachedEnd = false;
 function spawnObstacles() {
   for (let i = 1; i <= 6; i++) {
     obstacles.push({
-      x: i * obstacleSpacing + 400,
+      x: i * obstacleSpacing + 1000,
       y: ground,
       width: 48,
       height: 48,
