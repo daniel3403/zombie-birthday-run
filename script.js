@@ -21,9 +21,9 @@ finalImg.src = "assets/final_scene.png";
 
 let player = {
   x: 50,
-  y: 170,
-  width: 88,
-  height: 88,
+  y: 210,
+  width: 48,
+  height: 48,
   vy: 0,
   jumping: false,
   lives: 5
@@ -31,7 +31,7 @@ let player = {
 
 let gravity = 1.2;
 let jumpPower = -18;
-let ground = 258;
+let ground = 218;
 let obstacles = [];
 let obstacleSpacing = 400;
 let reachedEnd = false;
@@ -41,8 +41,8 @@ function spawnObstacles() {
     obstacles.push({
       x: i * obstacleSpacing + 600,
       y: ground,
-      width: 48,
-      height: 48,
+      width: 88,
+      height: 88,
       hit: false
     });
   }
