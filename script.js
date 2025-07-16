@@ -43,7 +43,7 @@ function spawnObstacles() {
   for (let i = 1; i <= 6; i++) {
     obstacles.push({
       x: i * obstacleSpacing + 600,
-      y: ground - 72, // alineado con el suelo
+      y: ground - 64, // alineado con el suelo
       width: 88,
       height: 68,
       hit: false
@@ -81,9 +81,9 @@ function drawEndScene() {
   ctx.drawImage(finalImg, 250, 30, 300, 200);
   ctx.fillStyle = "#fff";
   ctx.font = "22px Arial";
-  ctx.fillText("Sobreviviste a los zombis...", 40, 260);
-  ctx.fillText("Y ahora...", 40, 290);
-  ctx.fillText("¡Feliz cumpleaños, Rocío!", 40, 320);
+  ctx.fillText("Sobreviviste a los zombis...", 40, 240);
+  ctx.fillText("Y ahora...", 40, 260);
+  ctx.fillText("¡Feliz cumpleaños, Rocío!", 40, 280);
 }
 
 function update() {
