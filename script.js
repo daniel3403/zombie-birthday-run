@@ -33,7 +33,7 @@ let player = {
   lives: 5
 };
 
-let gravity = 1.2;
+let gravity = 0.7;
 let jumpPower = -24;
 let obstacles = [];
 let obstacleSpacing = 400;
@@ -43,7 +43,7 @@ function spawnObstacles() {
   for (let i = 1; i <= 6; i++) {
     obstacles.push({
       x: i * obstacleSpacing + 600,
-      y: ground - 88, // alineado con el suelo
+      y: ground - 68, // alineado con el suelo
       width: 88,
       height: 68,
       hit: false
