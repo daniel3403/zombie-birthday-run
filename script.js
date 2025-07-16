@@ -4,6 +4,9 @@ const ctx = canvas.getContext('2d');
 canvas.width = 800;
 canvas.height = 300;
 
+// ✅ Primero definimos el suelo
+let ground = 218;
+
 const playerRunImg = new Image();
 playerRunImg.src = "assets/player.png";
 
@@ -19,13 +22,10 @@ bgImg.src = "assets/background.png";
 const finalImg = new Image();
 finalImg.src = "assets/final_scene.png";
 
-// --- Suelo primero ---
-let ground = 218;
-
-// --- Jugador ---
+// ✅ Jugador bien alineado al suelo
 let player = {
   x: 50,
-  y: ground - 48, // Alineado al suelo
+  y: ground - 48,
   width: 48,
   height: 48,
   vy: 0,
@@ -43,7 +43,7 @@ function spawnObstacles() {
   for (let i = 1; i <= 6; i++) {
     obstacles.push({
       x: i * obstacleSpacing + 600,
-      y: ground - 40, // Alineado con el suelo si mide 88px
+      y: ground - 88, // alineado con el suelo
       width: 88,
       height: 88,
       hit: false
@@ -54,7 +54,7 @@ function spawnObstacles() {
 function drawPlayer() {
   const currentSprite = player.jumping ? playerJumpImg : playerRunImg;
 
-  // DEBUG opcional: ver rectángulo del jugador
+  // DEBUG: muestra el área del jugador
   // ctx.fillStyle = "rgba(255, 0, 0, 0.3)";
   // ctx.fillRect(player.x, player.y, player.width, player.height);
 
@@ -95,7 +95,7 @@ function update() {
     return;
   }
 
-  // Movimiento y gravedad
+  // Movimiento del jugador
   player.y += player.vy;
   player.vy += gravity;
 
@@ -104,10 +104,10 @@ function update() {
     player.jumping = false;
   }
 
+  // Movimiento y colisión de obstáculos
   for (let obs of obstacles) {
     obs.x -= 2;
 
-    // Hitbox ajustado
     if (
       player.x + 10 < obs.x + obs.width - 10 &&
       player.x + player.width - 10 > obs.x + 10 &&
@@ -128,6 +128,7 @@ function update() {
     return;
   }
 
+  // Fin del juego
   if (obstacles.length && obstacles[obstacles.length - 1].x < -60) {
     reachedEnd = true;
   }
@@ -154,6 +155,14 @@ document.addEventListener("click", () => {
   }
 });
 
-// Iniciar
-spawnObstacles();
-update();
+// Esperar que carguen todas las imágenes antes de empezar
+Promise.all([
+  new Promise(res => playerRunImg.onload = res),
+  new Promise(res => playerJumpImg.onload = res),
+  new Promise(res => zombieImg.onload = res),
+  new Promise(res => bgImg.onload = res),
+  new Promise(res => finalImg.onload = res)
+]).then(() => {
+  spawnObstacles();
+  update();
+});
