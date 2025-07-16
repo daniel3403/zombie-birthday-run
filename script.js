@@ -33,8 +33,8 @@ let player = {
   lives: 5
 };
 
-let gravity = 0.7;
-let jumpPower = -24;
+let gravity = 0.3;
+let jumpPower = -17;
 let obstacles = [];
 let obstacleSpacing = 400;
 let reachedEnd = false;
