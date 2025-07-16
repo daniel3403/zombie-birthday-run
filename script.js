@@ -4,8 +4,11 @@ const ctx = canvas.getContext('2d');
 canvas.width = 800;
 canvas.height = 300;
 
-const playerImg = new Image();
-playerImg.src = "assets/player.png";
+const playerRunImg = new Image();
+playerRunImg.src = "assets/player.png";
+
+const playerJumpImg = new Image();
+playerJumpImg.src = "assets/player_jump.png";
 
 const zombieImg = new Image();
 zombieImg.src = "assets/zombie.png";
@@ -30,7 +33,8 @@ function spawnObstacles() {
 }
 
 function drawPlayer() {
-  ctx.drawImage(playerImg, player.x, player.y, player.width, player.height);
+  const currentSprite = player.jumping ? playerJumpImg : playerRunImg;
+  ctx.drawImage(currentSprite, player.x, player.y, player.width, player.height);
 }
 
 function drawObstacles() {
@@ -76,7 +80,7 @@ function update() {
   }
 
   for (let obs of obstacles) {
-    obs.x -= 2;
+    obs.x -= 4;
 
     if (
       player.x < obs.x + obs.width &&
