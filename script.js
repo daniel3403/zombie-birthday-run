@@ -21,9 +21,9 @@ finalImg.src = "assets/final_scene.png";
 
 let player = {
   x: 50,
-  y: 210,
-  width: 48,
-  height: 48,
+  y: 170,
+  width: 88,
+  height: 88,
   vy: 0,
   jumping: false,
   lives: 5
