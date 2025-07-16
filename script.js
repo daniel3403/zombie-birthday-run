@@ -23,6 +23,7 @@ const finalImg = new Image();
 finalImg.src = "assets/final_scene.png";
 
 const jumpSound = new Audio("assets/woosh-230554.mp3");
+jumpSound.load();
 
 // ✅ Jugador bien alineado al suelo
 let player = {
@@ -149,19 +150,23 @@ function update() {
 // Controles
 document.addEventListener("keydown", (e) => {
   if ((e.code === "Space" || e.code === "ArrowUp") && !player.jumping) {
-    player.vy = jumpPower;
-    player.jumping = true;
+    jumpSound.pause();
     jumpSound.currentTime = 0;
     jumpSound.play();
+    
+    player.vy = jumpPower;
+    player.jumping = true;
   }
 });
 
 document.addEventListener("click", () => {
   if (!player.jumping) {
-    player.vy = jumpPower;
-    player.jumping = true;
+    jumpSound.pause();
     jumpSound.currentTime = 0;
     jumpSound.play();
+    
+    player.vy = jumpPower;
+    player.jumping = true;
   }
 });
 
@@ -175,4 +180,9 @@ Promise.all([
 ]).then(() => {
   spawnObstacles();
   update();
+});
+
+window.addEventListener("load", () => {
+  // 🔇 "Calienta" el sonido para evitar retrasos al primer salto
+  jumpSound.play().then(() => jumpSound.pause());
 });
