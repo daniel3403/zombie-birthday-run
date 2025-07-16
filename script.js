@@ -5,7 +5,7 @@ canvas.width = 800;
 canvas.height = 300;
 
 // ✅ Primero definimos el suelo
-let ground = 258;
+let ground = 278;
 
 const playerRunImg = new Image();
 playerRunImg.src = "assets/player.png";
@@ -34,7 +34,7 @@ let player = {
 };
 
 let gravity = 1.2;
-let jumpPower = -18;
+let jumpPower = -24;
 let obstacles = [];
 let obstacleSpacing = 400;
 let reachedEnd = false;
@@ -45,7 +45,7 @@ function spawnObstacles() {
       x: i * obstacleSpacing + 600,
       y: ground - 88, // alineado con el suelo
       width: 88,
-      height: 88,
+      height: 68,
       hit: false
     });
   }
