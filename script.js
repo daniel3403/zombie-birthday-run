@@ -19,9 +19,13 @@ bgImg.src = "assets/background.png";
 const finalImg = new Image();
 finalImg.src = "assets/final_scene.png";
 
+// --- Suelo primero ---
+let ground = 218;
+
+// --- Jugador ---
 let player = {
   x: 50,
-  y: 170,
+  y: ground - 48, // Alineado al suelo
   width: 48,
   height: 48,
   vy: 0,
@@ -31,7 +35,6 @@ let player = {
 
 let gravity = 1.2;
 let jumpPower = -18;
-let ground = 218;
 let obstacles = [];
 let obstacleSpacing = 400;
 let reachedEnd = false;
@@ -40,7 +43,7 @@ function spawnObstacles() {
   for (let i = 1; i <= 6; i++) {
     obstacles.push({
       x: i * obstacleSpacing + 600,
-      y: ground - 40,
+      y: ground - 40, // Alineado con el suelo si mide 88px
       width: 88,
       height: 88,
       hit: false
@@ -50,6 +53,11 @@ function spawnObstacles() {
 
 function drawPlayer() {
   const currentSprite = player.jumping ? playerJumpImg : playerRunImg;
+
+  // DEBUG opcional: ver rectángulo del jugador
+  // ctx.fillStyle = "rgba(255, 0, 0, 0.3)";
+  // ctx.fillRect(player.x, player.y, player.width, player.height);
+
   ctx.drawImage(currentSprite, player.x, player.y, player.width, player.height);
 }
 
@@ -73,9 +81,9 @@ function drawEndScene() {
   ctx.drawImage(finalImg, 250, 30, 300, 200);
   ctx.fillStyle = "#fff";
   ctx.font = "22px Arial";
-  ctx.fillText("Sobreviviste a los zombis...", 40, 150);
-  ctx.fillText("Y ahora...", 40, 200);
-  ctx.fillText("¡Feliz cumpleaños, Rocío!", 40, 250);
+  ctx.fillText("Sobreviviste a los zombis...", 40, 260);
+  ctx.fillText("Y ahora...", 40, 290);
+  ctx.fillText("¡Feliz cumpleaños, Rocío!", 40, 320);
 }
 
 function update() {
@@ -87,23 +95,25 @@ function update() {
     return;
   }
 
-player.y += player.vy;
-player.vy += gravity;
+  // Movimiento y gravedad
+  player.y += player.vy;
+  player.vy += gravity;
 
-if (player.y >= ground - player.height) {
-  player.y = ground - player.height;
-  player.jumping = false;
-}
+  if (player.y >= ground - player.height) {
+    player.y = ground - player.height;
+    player.jumping = false;
+  }
 
   for (let obs of obstacles) {
     obs.x -= 2;
 
-if (
-  player.x + 10 < obs.x + obs.width - 10 &&
-  player.x + player.width - 10 > obs.x + 10 &&
-  player.y + 10 < obs.y + obs.height - 10 &&
-  player.y + player.height - 10 > obs.y + 10
-) {
+    // Hitbox ajustado
+    if (
+      player.x + 10 < obs.x + obs.width - 10 &&
+      player.x + player.width - 10 > obs.x + 10 &&
+      player.y + 10 < obs.y + obs.height - 10 &&
+      player.y + player.height - 10 > obs.y + 10
+    ) {
       if (!obs.hit) {
         player.lives--;
         obs.hit = true;
@@ -129,6 +139,7 @@ if (
   requestAnimationFrame(update);
 }
 
+// Controles
 document.addEventListener("keydown", (e) => {
   if ((e.code === "Space" || e.code === "ArrowUp") && !player.jumping) {
     player.vy = jumpPower;
@@ -143,5 +154,6 @@ document.addEventListener("click", () => {
   }
 });
 
+// Iniciar
 spawnObstacles();
 update();
