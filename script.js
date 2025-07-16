@@ -164,7 +164,6 @@ document.addEventListener("click", () => {
     jumpSound.play();
   }
 });
-me h
 
 // Esperar que carguen todas las imágenes antes de empezar
 Promise.all([
