@@ -79,11 +79,11 @@ function drawLives() {
 
 function drawEndScene() {
   ctx.drawImage(finalImg, 250, 30, 300, 200);
-  ctx.fillStyle = "#fff";
+  ctx.fillStyle = "#000000";
   ctx.font = "22px Arial";
-  ctx.fillText("Sobreviviste a los zombis...", 40, 240);
-  ctx.fillText("Y ahora...", 40, 260);
-  ctx.fillText("¡Feliz cumpleaños, Rocío!", 40, 280);
+  ctx.fillText("Sobreviviste a los zombis...", 400, 240);
+  ctx.fillText("Y ahora...", 400, 260);
+  ctx.fillText("¡Feliz cumpleaños, Rocío!", 400, 280);
 }
 
 function update() {
